@@ -15,7 +15,6 @@ const { SystemProgram } = web3;
 
 const App = () => {
   const [walletAddress, setWalletAddress] = useState(null);
-  const [campaigns, setCampaigns] = useState([]);
   const getProvider = () => {
     const connection = new Connection(network, opts.preflightCommitment)
     const provider = new AnchorProvider(connection, window.solana, opts.preflightCommitment);
@@ -52,12 +51,7 @@ const App = () => {
     const connection = new Connection(network, opts.preflightCommitment);
     const provider = getProvider();
     const program = new Program(idl, programID, provider);
-    Promise.all((await connection.getProgramAccounts(programID)).map(async campaign => ({
-      ...(await program.account.campaign.fetch(campaign.pubkey)),
-      pubkey: campaign.pubkey,
-    })
-    )
-    ).then((campaigns) => setCampaigns(campaigns));
+    Promise.all(await connection.getProgramAccounts(programID))
   }
 
   const createCampaign = async () => {
@@ -87,19 +81,7 @@ const App = () => {
     <button onClick={connectWallet}>Connect to wallet</button>
   );
   const renderConnectedContainer = () => (
-    <>
-      <button onClick={createCampaign}>Create a campaign</button>
-      <button onClick={getCampaigns}>Get a list of campaigns</button>
-      <br />
-      {campaigns.map(campaign => (<>
-        <p>Campaign ID: {campaign.pubkey.toString()}</p>
-        <p>Balance: {(campaign.amountDonated / web3.LAMPORTS_PER_SOL_).toString()}</p>
-        <p>{campaign.name}</p>
-        <p>{campaign.description}</p>
-        <br />
-        </>
-      ))}
-    </>
+    <button onClick={createCampaign}>Create a campaign</button>
   );
   useEffect(() => {
     const onLoad = async () => {

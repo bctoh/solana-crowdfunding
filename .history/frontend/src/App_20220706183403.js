@@ -89,15 +89,10 @@ const App = () => {
   const renderConnectedContainer = () => (
     <>
       <button onClick={createCampaign}>Create a campaign</button>
-      <button onClick={getCampaigns}>Get a list of campaigns</button>
       <br />
       {campaigns.map(campaign => (<>
         <p>Campaign ID: {campaign.pubkey.toString()}</p>
         <p>Balance: {(campaign.amountDonated / web3.LAMPORTS_PER_SOL_).toString()}</p>
-        <p>{campaign.name}</p>
-        <p>{campaign.description}</p>
-        <br />
-        </>
       ))}
     </>
   );
