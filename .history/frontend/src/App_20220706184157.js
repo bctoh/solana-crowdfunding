@@ -116,7 +116,6 @@ const App = () => {
         <p>Balance: {(campaign.amountDonated / web3.LAMPORTS_PER_SOL_).toString()}</p>
         <p>{campaign.name}</p>
         <p>{campaign.description}</p>
-        <button onClick={() => donate(campaign.pubkey)}>Click to donate!</button>
         <br />
         </>
       ))}
