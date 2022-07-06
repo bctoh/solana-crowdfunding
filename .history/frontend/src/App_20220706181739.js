@@ -1,10 +1,9 @@
 import './App.css';
+import { useEffect, useState } from "react";
 import idl from "./idl.json";
 import { Connection, PublicKey, clusterApiUrl } from '@solana/web3.js';
 import { Program, AnchorProvider, web3, utils, BN } from '@project-serum/anchor';
-import { useEffect, useState } from "react";
-import { Buffer } from "buffer";
-window.Buffer = Buffer;
+
 
 const programID = new PublicKey(idl.metadata.address);
 const network = clusterApiUrl('devnet');
